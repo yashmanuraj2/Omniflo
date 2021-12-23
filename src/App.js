@@ -16,7 +16,7 @@ return (
 
     <Router>  
      <Routes>
-        <Route exact path="/" element ={user ? <Main /> : <Login />}/>
+        <Route exact path="/" element ={<Main /> }/>
         
         <Route path="/login" element ={<Login/>}/>
         
