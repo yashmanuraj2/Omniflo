@@ -16,6 +16,11 @@ You may also see any lint errors in the console.
 
 ### `npm test`
 
+### `cd to Backend and then type nodemon server`
+
+It Will Start the Backend Server on port 5000;
+The Database connection String is provided in ther server.js file
+
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
