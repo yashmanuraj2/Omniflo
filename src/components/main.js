@@ -2,8 +2,10 @@ import React from "react";
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import { Table, Button , Row,Col} from "react-bootstrap";
+import {Link} from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import AddModal from "./addModal";
+import './main.css'
 export default function Main() {
   const [phone, setPhone] = useState("");
   const [Show1, setShow1] = useState(false);
@@ -114,7 +116,7 @@ export default function Main() {
     <div>
       <div className="container">
         <div className="centre">
-          <div className="centre-div">
+          <div className="Box">
             <Col md={8}>
      <h3>{` Welcome ${user.name}, ${user.phone}`}</h3> 
       <Button variant ="primary"
@@ -144,6 +146,9 @@ export default function Main() {
         View Requests
       </Button>
       <ViewRequests show={Show2} />
+      <Link to ="/login">
+      <button className="LogOutButton">LOG OUT </button>
+      </Link>
       </Col>
       </div>
       </div>

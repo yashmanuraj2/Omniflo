@@ -1,0 +1,22 @@
+.Box{
+    height: 300px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.LogOutButton{
+    
+    height: 50px;
+    border-radius: 20px;
+    border: none;
+    background-color: #17ee82;
+    color: white;
+    font-size: 15px;
+    font-weight: 300;
+   
+
+}
