@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button , Row,Col} from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import AddModal from "./addModal";
 export default function Main() {
@@ -38,39 +38,52 @@ export default function Main() {
     setUpi(e.target.value);
   };
 
-
-  let requestData = new Array(userData.requests);
+  
   const { user } = useContext(AuthContext);
   const created = user.phone;
 
   const updateOne = async () => {
-    const newData = {
+    const BorrowData = {
       phone: created,
       amount: amount,
       reason: reason,
       duration: duration,
       upi: upi,
     };
-
-    axios.put("http://localhost:5000/requests/" + phone, newData);
+    try {
+      await axios.put("http://localhost:5000/requests/" + phone,BorrowData)
+      
+        // if you use token
+        .then((res) => {
+          console.log(res.data);
+         console.log(phone)
+          console.log("true");
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
-    const getRequests = async () => {
-      const sol = await axios.get(
-        "http://localhost:5000/myRequests/" + user.phone
-      );
-      setUserData(sol.data);
+    const getData = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/myRequests/" + user.phone);
+        setUserData(res.data);
+      } catch (err) {
+        console.log(err);
+      }
     };
-    getRequests();
-  }, [user.phone]);
+    getData();
+  }, []);
+
+  let requestData = new Array(userData.requests);
   
   const ViewRequests = (props) => {
     if (!props.show) return null;
     else {
       return (
         <div>
-          <Table striped bordered hover>
+          <Table striped bordered hover variant="dark">
             <thead>
               <tr>
                 <th>By</th>
@@ -81,11 +94,11 @@ export default function Main() {
               </tr>
             </thead>
             <tbody>
-              {requestData.map((request) => (
+              {requestData[0].map((request) => (
                 <tr key={request.id}>
                   <td>{request.phone}</td>
-                  <td>{request.reason}</td>
                   <td>{request.amount}</td>
+                  <td>{request.reason}</td>
                   <td>{request.duration}</td>
                   <td>{request.upi}</td>
                 </tr>
@@ -99,7 +112,12 @@ export default function Main() {
 
   return (
     <div>
-      <Button
+      <div className="container">
+        <div className="centre">
+          <div className="centre-div">
+            <Col md={8}>
+     <h3>{` Welcome ${user.name}, ${user.phone}`}</h3> 
+      <Button variant ="primary"
         onClick={() => {
           changeShow1();
         }}
@@ -117,7 +135,8 @@ export default function Main() {
         changeUPI={changeUpi}
         onSubmit={updateOne}
       />
-      <Button
+
+      <Button variant ="primary"
         onClick={() => {
           changeShow2();
         }}
@@ -125,6 +144,11 @@ export default function Main() {
         View Requests
       </Button>
       <ViewRequests show={Show2} />
+      </Col>
+      </div>
+      </div>
+      </div>
+      
     </div>
   );
 }
