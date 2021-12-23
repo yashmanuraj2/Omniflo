@@ -9,7 +9,7 @@ In the project directory, you can run:
 ### `npm start`
 ### `PURPOSE OF THE PROJECT`
 
-To create an app that allows flow user to request money on their mobile number
+To create an app that allows user to request money from someone.
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
