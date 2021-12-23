@@ -1,14 +1,14 @@
 import axios from "axios";
 import { useRef ,useState} from "react";
 import "./register.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,Link} from "react-router-dom";
 
 export default function Register() {
   const username = useRef();
   const email = useRef();
   const password = useRef();
   const passwordAgain = useRef();
-  const[gender,setGender] = useState("")
+  const[gender,setGender] = useState("Male")
     const phone = useRef();
   
   const history = useNavigate();
@@ -20,9 +20,7 @@ export default function Register() {
   }
   const handleClick = async (e) => {
     e.preventDefault();
-    if (passwordAgain.current.value !== password.current.value) {
-      passwordAgain.current.setCustomValidity("Passwords don't match!");
-    } else {
+  
       const user = {
         name: username.current.value,
         email: email.current.value,
@@ -31,12 +29,12 @@ export default function Register() {
         phone : phone.current.value
       };
       try {
-        await axios.post("/register", user);
+        await axios.post("http://localhost:5000/register", user);
         history.push("/login");
       } catch (err) {
         console.log(err);
       }
-    }
+    
   };
 
   return (
@@ -45,7 +43,7 @@ export default function Register() {
         <div className="loginLeft">
           <h3 className="loginLogo">Omniflow</h3>
           <span className="loginDesc">
-           Payments app that keeps track of your money
+           Best way to Borrow Money
           </span>
         </div>
         <div className="loginRight">
@@ -68,6 +66,7 @@ export default function Register() {
               required
               ref={password}
               className="loginInput"
+              suggested = "current-password"
               type="password"
             
             />
@@ -91,8 +90,9 @@ export default function Register() {
             <button className="loginButton" type="submit">
               Sign Up
             </button>
+            <Link to ='/login'>
             <button className="loginRegisterButton">Log into Account</button>
-
+                       </Link>
           </form>
         </div>
       </div>
